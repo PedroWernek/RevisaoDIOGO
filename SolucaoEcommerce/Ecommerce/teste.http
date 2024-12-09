@@ -3,7 +3,7 @@ POST http://localhost:5074/cadastrar/categoria
 Content-Type: application/json
 
 {
-    "nome" : "calçados"
+    "nome" : "apple"
 }
 ###Criar Produto
 POST http://localhost:5074/cadastrar/produto
@@ -30,6 +30,9 @@ Content-Type: application/json
     "preco" : 20.25,
     "categoriaId" : 1
 }
-Content-Type: application/json
+
 ###Deletar Produto
 DELETE http://localhost:5074/deletar/produto/8c586c30-648d-4e3d-b7eb-da33ea3f3515
+
+###Buscar Produto
+GET  http://localhost:5074/buscar/produto/2bf2f1fd-241c-4010-9f90-75f7ee049e9f

@@ -81,6 +81,10 @@ app.MapDelete("/deletar/produto/{id}", ([FromRoute] string id, [FromServices] Ap
     return Results.Ok(Produto);
 });
 
+app.MapGet("/buscar/produto/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
+{
+    return Results.Ok(ctx.TabelaProdutos?.Include(x => x.Categoria).FirstOrDefault(x => x.ProdutoId == id));
+});
 app.MapGet("/buscar/produtos/categoria:{id}" ,([FromRoute] int id, [FromServices] AppDataContext ctx) =>{
     if(ctx.TabelaProdutos?.Count() <= 0){
         return Results.NotFound();
