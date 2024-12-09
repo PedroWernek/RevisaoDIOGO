@@ -1,5 +1,6 @@
 using Ecommerce.models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDataContext>();
@@ -44,7 +45,7 @@ app.MapGet("/listar/categorias", ([FromServices] AppDataContext ctx) =>
 
 app.MapGet("/listar/produtos", ([FromServices] AppDataContext ctx) => 
 {
-    return Results.Ok(ctx.TabelaProdutos?.ToList());
+    return Results.Ok(ctx.TabelaProdutos?.Include(x => x.Categoria).ToList());
 });
 
 app.MapPut("/editar/produto/{id}", ([FromRoute] string id, [FromBody] Produto produtoAlterado, [FromServices] AppDataContext ctx) =>
@@ -78,6 +79,13 @@ app.MapDelete("/deletar/produto/{id}", ([FromRoute] string id, [FromServices] Ap
     ctx.TabelaProdutos?.Remove(Produto);
     ctx.SaveChanges();
     return Results.Ok(Produto);
+});
+
+app.MapGet("/buscar/produtos/categoria:{id}" ,([FromRoute] int id, [FromServices] AppDataContext ctx) =>{
+    if(ctx.TabelaProdutos?.Count() <= 0){
+        return Results.NotFound();
+    }
+    return Results.Ok(ctx.TabelaProdutos?.Where(x => x.CategoriaId == id).ToList());
 });
 
 app.UseCors("Acesso Total");
