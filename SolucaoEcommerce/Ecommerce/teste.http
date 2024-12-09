@@ -1,0 +1,35 @@
+###Criar Categoria
+POST http://localhost:5074/cadastrar/categoria
+Content-Type: application/json
+
+{
+    "nome" : "calçados"
+}
+###Criar Produto
+POST http://localhost:5074/cadastrar/produto
+Content-Type: application/json
+
+{
+    "nome" : "nike",
+    "quantidade" : 2,
+    "preco" : 200.25,
+    "categoriaId" : 1
+}
+###Listar Categoria
+GET http://localhost:5074/listar/categoria
+###Listar Produto
+GET http://localhost:5074/listar/produto
+
+###Editar Produto
+PUT http://localhost:5074/editar/produto/8c586c30-648d-4e3d-b7eb-da33ea3f3515
+Content-Type: application/json
+
+{
+    "nome" : "abibas",
+    "quantidade" : 10,
+    "preco" : 20.25,
+    "categoriaId" : 1
+}
+
+###Deletar Produto
+DELETE http://localhost:5074/deletar/produto/8c586c30-648d-4e3d-b7eb-da33ea3f3515
